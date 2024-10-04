@@ -528,16 +528,16 @@ export default function Wind2Hex() {
   return (
     <>
       <Head>
-        <title>ColorFusion - Color Code Converter</title>
-        <meta name="description" content="Easily convert between HEX, RGB, HSL color codes and Tailwind CSS classes with ColorFusion. Perfect for web developers and designers." />
+        <title>ColorFusion - Convertisseur de Codes Couleur</title>
+        <meta name="description" content="Convertissez facilement entre les codes couleur HEX, RGB, HSL et les classes Tailwind CSS avec ColorFusion. Parfait pour les développeurs web et les designers." />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="keywords" content="color converter, hex to rgb, rgb to hsl, tailwind css, color codes, web development, design tools" />
-        <meta property="og:title" content="ColorFusion - Color Code Converter" />
-        <meta property="og:description" content="Convert color codes easily with ColorFusion. HEX, RGB, HSL, and Tailwind CSS support." />
+        <meta name="keywords" content="convertisseur de couleur, hex vers rgb, rgb vers hsl, tailwind css, codes couleur, développement web, outils de design" />
+        <meta property="og:title" content="ColorFusion - Convertisseur de Codes Couleur" />
+        <meta property="og:description" content="Convertissez facilement les codes couleur avec ColorFusion. Support pour HEX, RGB, HSL et Tailwind CSS." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://colorfusion.ndiagandiaye.com/" />
-        <meta property="og:image" content="http://colorfusion.ndiagandiaye.com/og-image.png" />
-        <link rel="canonical" href="http://colorfusion.ndiagandiaye.com/" />
+        <meta property="og:url" content="https://colorfusion-five.vercel.app/" />
+        <meta property="og:image" content="https://colorfusion-five.vercel.app/og-image.png" />
+        <link rel="canonical" href="https://colorfusion-five.vercel.app/" />
       </Head>
       {process.env.NEXT_PUBLIC_GA_ID && (
         <>
@@ -567,7 +567,7 @@ export default function Wind2Hex() {
           ColorFusion
         </motion.h1>
         <p className="text-center text-gray-600 mb-4">
-          Easily convert between HEX, RGB, HSL color codes and Tailwind CSS classes. Perfect for web developers and designers.
+          Convertissez facilement entre les codes couleur HEX, RGB, HSL et les classes Tailwind CSS. L'outil parfait pour les développeurs web et les designers.
         </p>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
