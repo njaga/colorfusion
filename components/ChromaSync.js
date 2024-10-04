@@ -567,7 +567,7 @@ export default function Wind2Hex() {
           ColorFusion
         </motion.h1>
         <p className="text-center text-gray-600 mb-4">
-          Convertissez facilement entre les codes couleur HEX, RGB, HSL et les classes Tailwind CSS. L'outil parfait pour les développeurs web et les designers.
+          Convertissez facilement entre les codes couleur HEX, RGB, HSL et les classes Tailwind CSS. L{"'"}outil parfait pour les développeurs web et les designers.
         </p>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
