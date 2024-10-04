@@ -1,0 +1,30 @@
+# Dépendances
+/node_modules
+/.pnp
+.pnp.js
+
+# Fichiers de build
+/.next/
+/out/
+
+# Fichiers de production
+/build
+
+# Fichiers divers
+.DS_Store
+*.pem
+
+# Fichiers de debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers d'environnement local
+.env*.local
+
+# Fichiers de vérification
+.vercel
+
+# Fichiers TypeScript
+*.tsbuildinfo
+next-env.d.ts
