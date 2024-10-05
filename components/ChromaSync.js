@@ -13,12 +13,17 @@ import {
   Linkedin,
   Github,
   ArrowLeftRight,
-  Globe
+  Globe,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import Head from 'next/head';
-import Script from 'next/script';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Head from "next/head";
+import Script from "next/script";
 
 const tailwindColors = {
   slate: [
@@ -333,24 +338,29 @@ const hexToTailwind = (hexColor) => {
 };
 
 const tailwindToHex = (tailwindClass) => {
-  const [colorName, shade] = tailwindClass.split('-');
+  const [colorName, shade] = tailwindClass.split("-");
   const shadeIndex = parseInt(shade) / 100 - 1;
-  return tailwindColors[colorName]?.[shadeIndex] || '';
+  return tailwindColors[colorName]?.[shadeIndex] || "";
 };
 
 const hexToRgb = (hex) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : null;
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
 };
 
 const rgbToHsl = (r, g, b) => {
-  r /= 255, g /= 255, b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h, s, l = (max + min) / 2;
+  (r /= 255), (g /= 255), (b /= 255);
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  let h,
+    s,
+    l = (max + min) / 2;
 
   if (max === min) {
     h = s = 0;
@@ -358,9 +368,15 @@ const rgbToHsl = (r, g, b) => {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
     switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
     }
     h /= 6;
   }
@@ -368,55 +384,56 @@ const rgbToHsl = (r, g, b) => {
   return {
     h: Math.round(h * 360),
     s: Math.round(s * 100),
-    l: Math.round(l * 100)
+    l: Math.round(l * 100),
   };
 };
 
 const detectInputFormat = (value) => {
   if (/^#[0-9A-F]{6}$/i.test(value)) {
-    return 'hex';
+    return "hex";
   } else if (/^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$/i.test(value)) {
-    return 'rgb';
+    return "rgb";
   } else if (/^hsl\(\s*\d+\s*,\s*\d+%?\s*,\s*\d+%?\s*\)$/i.test(value)) {
-    return 'hsl';
+    return "hsl";
   } else if (/^bg-[a-z]+-[1-9]00$/.test(value)) {
-    return 'tailwind';
+    return "tailwind";
   }
-  return 'unknown';
+  return "unknown";
 };
 
 export const metadata = {
   title: "ColorFusion",
-  description: "Easily convert between HEX, RGB, HSL color codes and Tailwind CSS classes.",
+  description:
+    "Easily convert between HEX, RGB, HSL color codes and Tailwind CSS classes.",
 };
 
 export default function Wind2Hex() {
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
   const [shades, setShades] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [isHexMode, setIsHexMode] = useState(true);
-  const [previewColor, setPreviewColor] = useState('');
+  const [previewColor, setPreviewColor] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
-  const [inputFormat, setInputFormat] = useState('hex');
+  const [inputFormat, setInputFormat] = useState("hex");
   const [copiedStates, setCopiedStates] = useState({
     result: false,
     hex: false,
     rgb: false,
-    hsl: false
+    hsl: false,
   });
 
   useEffect(() => {
     // Load history from localStorage when component mounts
-    const savedHistory = localStorage.getItem('colorConversionHistory');
+    const savedHistory = localStorage.getItem("colorConversionHistory");
     if (savedHistory) {
       setSearchHistory(JSON.parse(savedHistory));
     }
 
     // Google Analytics initialization
-    if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_GA_ID) {
-      import('react-ga').then((ReactGA) => {
+    if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_GA_ID) {
+      import("react-ga").then((ReactGA) => {
         ReactGA.initialize(process.env.NEXT_PUBLIC_GA_ID);
         ReactGA.pageview(window.location.pathname + window.location.search);
       });
@@ -426,23 +443,26 @@ export default function Wind2Hex() {
   const copyToClipboard = (text, key) => {
     navigator.clipboard.writeText(text).then(
       () => {
-        setCopiedStates(prev => ({ ...prev, [key]: true }));
-        setTimeout(() => setCopiedStates(prev => ({ ...prev, [key]: false })), 2000);
+        setCopiedStates((prev) => ({ ...prev, [key]: true }));
+        setTimeout(
+          () => setCopiedStates((prev) => ({ ...prev, [key]: false })),
+          2000
+        );
       },
       (err) => {
-        console.error('Error copying to clipboard: ', err);
+        console.error("Error copying to clipboard: ", err);
       }
     );
   };
 
   const resetApplication = () => {
-    setInput('');
-    setOutput('');
+    setInput("");
+    setOutput("");
     setShades([]);
-    setError('');
-    setPreviewColor('');
+    setError("");
+    setPreviewColor("");
     setIsHexMode(true);
-    setInputFormat('hex');
+    setInputFormat("hex");
   };
 
   const handleInputChange = (e) => {
@@ -450,46 +470,48 @@ export default function Wind2Hex() {
     setInput(value);
     const format = detectInputFormat(value);
     setInputFormat(format);
-    setIsHexMode(format !== 'tailwind');
+    setIsHexMode(format !== "tailwind");
   };
 
   const handleConvert = () => {
-    setError('');
+    setError("");
     let result, colorName, hexColor;
 
     switch (inputFormat) {
-      case 'hex':
+      case "hex":
         hexColor = input;
         result = hexToTailwind(input);
-        [colorName] = result ? result.split('-') : [null];
+        [colorName] = result ? result.split("-") : [null];
         break;
-      case 'rgb':
+      case "rgb":
         const rgbMatch = input.match(/\d+/g);
         if (rgbMatch) {
           const [r, g, b] = rgbMatch.map(Number);
-          hexColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+          hexColor = `#${((1 << 24) + (r << 16) + (g << 8) + b)
+            .toString(16)
+            .slice(1)}`;
           result = hexToTailwind(hexColor);
-          [colorName] = result ? result.split('-') : [null];
+          [colorName] = result ? result.split("-") : [null];
         }
         break;
-      case 'hsl':
+      case "hsl":
         // La conversion de HSL à HEX est plus complexe et nécessiterait une fonction supplémentaire
         setError("Direct conversion from HSL is not yet supported.");
         return;
-      case 'tailwind':
-        hexColor = tailwindToHex(input.replace('bg-', ''));
+      case "tailwind":
+        hexColor = tailwindToHex(input.replace("bg-", ""));
         if (hexColor) {
-          result = input.startsWith('bg-') ? input : `bg-${input}`;
-          [colorName] = input.replace('bg-', '').split('-');
+          result = input.startsWith("bg-") ? input : `bg-${input}`;
+          [colorName] = input.replace("bg-", "").split("-");
         }
         break;
       default:
-        setError('Unrecognized input format.');
+        setError("Unrecognized input format.");
         return;
     }
 
     if (!hexColor || !result) {
-      setError('Conversion impossible.');
+      setError("Conversion impossible.");
       return;
     }
 
@@ -506,39 +528,58 @@ export default function Wind2Hex() {
       output: result,
       hex: hexColor,
       rgb: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
-      hsl: `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`
+      hsl: `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`,
     };
 
     const newHistory = [newHistoryItem, ...searchHistory.slice(0, 4)];
     setSearchHistory(newHistory);
-    localStorage.setItem('colorConversionHistory', JSON.stringify(newHistory));
+    localStorage.setItem("colorConversionHistory", JSON.stringify(newHistory));
   };
 
   const deleteHistoryItem = (index) => {
     const newHistory = searchHistory.filter((_, i) => i !== index);
     setSearchHistory(newHistory);
-    localStorage.setItem('colorConversionHistory', JSON.stringify(newHistory));
+    localStorage.setItem("colorConversionHistory", JSON.stringify(newHistory));
   };
 
   const reuseHistoryItem = (item) => {
     setInput(item.input);
-    setIsHexMode(item.input.startsWith('#'));
+    setIsHexMode(item.input.startsWith("#"));
   };
 
   return (
     <>
       <Head>
-        <title>ColorFusion - Convertisseur de Codes Couleur</title>
-        <meta name="description" content="Convertissez facilement entre les codes couleur HEX, RGB, HSL et les classes Tailwind CSS avec ColorFusion. Parfait pour les développeurs web et les designers." />
+        <title>ColorFusion - Color Code Converter</title>
+        <meta
+          name="description"
+          content="Easily convert between HEX, RGB, HSL color codes and Tailwind CSS classes with ColorFusion. Perfect for web developers and designers."
+        />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="keywords" content="convertisseur de couleur, hex vers rgb, rgb vers hsl, tailwind css, codes couleur, développement web, outils de design" />
-        <meta property="og:title" content="ColorFusion - Convertisseur de Codes Couleur" />
-        <meta property="og:description" content="Convertissez facilement les codes couleur avec ColorFusion. Support pour HEX, RGB, HSL et Tailwind CSS." />
+        <meta
+          name="keywords"
+          content="color converter, hex to rgb, rgb to hsl, tailwind css, color codes, web development, design tools"
+        />
+        <meta
+          property="og:title"
+          content="ColorFusion - Color Code Converter"
+        />
+        <meta
+          property="og:description"
+          content="Easily convert color codes with ColorFusion. Support for HEX, RGB, HSL, and Tailwind CSS."
+        />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://colorfusion-five.vercel.app/" />
-        <meta property="og:image" content="https://colorfusion-five.vercel.app/og-image.png" />
+        <meta
+          property="og:url"
+          content="https://colorfusion-five.vercel.app/"
+        />
+        <meta
+          property="og:image"
+          content="https://colorfusion-five.vercel.app/og-image.png"
+        />
         <link rel="canonical" href="https://colorfusion-five.vercel.app/" />
       </Head>
+
       {process.env.NEXT_PUBLIC_GA_ID && (
         <>
           <Script
@@ -567,7 +608,8 @@ export default function Wind2Hex() {
           ColorFusion
         </motion.h1>
         <p className="text-center text-gray-600 mb-4">
-          Convertissez facilement entre les codes couleur HEX, RGB, HSL et les classes Tailwind CSS. L{"'"}outil parfait pour les développeurs web et les designers.
+          Easily convert between HEX, RGB, HSL color codes and Tailwind CSS
+          classes. <br/> The perfect tool for web developers and designers.
         </p>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
@@ -608,7 +650,7 @@ export default function Wind2Hex() {
                   <Button
                     size="icon"
                     variant="ghost"
-                    onClick={() => copyToClipboard(output, 'result')}
+                    onClick={() => copyToClipboard(output, "result")}
                   >
                     {copiedStates.result ? (
                       <Check className="h-4 w-4 text-green-500" />
@@ -627,8 +669,14 @@ export default function Wind2Hex() {
                   ></div>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <p><strong>HEX:</strong> {previewColor}</p>
-                      <Button size="icon" variant="outline" onClick={() => copyToClipboard(previewColor, 'hex')}>
+                      <p>
+                        <strong>HEX:</strong> {previewColor}
+                      </p>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => copyToClipboard(previewColor, "hex")}
+                      >
                         {copiedStates.hex ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
@@ -637,8 +685,16 @@ export default function Wind2Hex() {
                       </Button>
                     </div>
                     <div className="flex justify-between items-center">
-                      <p><strong>RGB:</strong> {searchHistory[0]?.rgb}</p>
-                      <Button size="icon" variant="outline" onClick={() => copyToClipboard(searchHistory[0]?.rgb, 'rgb')}>
+                      <p>
+                        <strong>RGB:</strong> {searchHistory[0]?.rgb}
+                      </p>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() =>
+                          copyToClipboard(searchHistory[0]?.rgb, "rgb")
+                        }
+                      >
                         {copiedStates.rgb ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
@@ -647,8 +703,16 @@ export default function Wind2Hex() {
                       </Button>
                     </div>
                     <div className="flex justify-between items-center">
-                      <p><strong>HSL:</strong> {searchHistory[0]?.hsl}</p>
-                      <Button size="icon" variant="outline" onClick={() => copyToClipboard(searchHistory[0]?.hsl, 'hsl')}>
+                      <p>
+                        <strong>HSL:</strong> {searchHistory[0]?.hsl}
+                      </p>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() =>
+                          copyToClipboard(searchHistory[0]?.hsl, "hsl")
+                        }
+                      >
                         {copiedStates.hsl ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
@@ -672,23 +736,66 @@ export default function Wind2Hex() {
                                 className="w-8 h-8 rounded-full cursor-pointer shadow-md"
                                 style={{ backgroundColor: shade }}
                                 onClick={() => {
-                                  setInput(isHexMode ? shade : `bg-${output.split('-')[0]}-${(index + 1) * 100}`);
+                                  setInput(
+                                    isHexMode
+                                      ? shade
+                                      : `bg-${output.split("-")[0]}-${
+                                          (index + 1) * 100
+                                        }`
+                                  );
                                 }}
                                 role="button"
                                 tabIndex={0}
                                 onKeyDown={(e) => {
-                                  if (e.key === 'Enter' || e.key === ' ') {
-                                    setInput(isHexMode ? shade : `bg-${output.split('-')[0]}-${(index + 1) * 100}`);
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    setInput(
+                                      isHexMode
+                                        ? shade
+                                        : `bg-${output.split("-")[0]}-${
+                                            (index + 1) * 100
+                                          }`
+                                    );
                                   }
                                 }}
                               ></div>
-                              <span className="text-xs mt-1">{`${index + 1}00`}</span>
+                              <span className="text-xs mt-1">{`${
+                                index + 1
+                              }00`}</span>
                             </div>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>HEX: {shade}</p>
-                            <p>RGB: {hexToRgb(shade).r}, {hexToRgb(shade).g}, {hexToRgb(shade).b}</p>
-                            <p>HSL: {rgbToHsl(hexToRgb(shade).r, hexToRgb(shade).g, hexToRgb(shade).b).h}, {rgbToHsl(hexToRgb(shade).r, hexToRgb(shade).g, hexToRgb(shade).b).s}%, {rgbToHsl(hexToRgb(shade).r, hexToRgb(shade).g, hexToRgb(shade).b).l}%</p>
+                            <p>
+                              RGB: {hexToRgb(shade).r}, {hexToRgb(shade).g},{" "}
+                              {hexToRgb(shade).b}
+                            </p>
+                            <p>
+                              HSL:{" "}
+                              {
+                                rgbToHsl(
+                                  hexToRgb(shade).r,
+                                  hexToRgb(shade).g,
+                                  hexToRgb(shade).b
+                                ).h
+                              }
+                              ,{" "}
+                              {
+                                rgbToHsl(
+                                  hexToRgb(shade).r,
+                                  hexToRgb(shade).g,
+                                  hexToRgb(shade).b
+                                ).s
+                              }
+                              %,{" "}
+                              {
+                                rgbToHsl(
+                                  hexToRgb(shade).r,
+                                  hexToRgb(shade).g,
+                                  hexToRgb(shade).b
+                                ).l
+                              }
+                              %
+                            </p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
@@ -704,13 +811,18 @@ export default function Wind2Hex() {
               <h3 className="text-lg font-semibold mb-2">Search History</h3>
               <ul className="space-y-2">
                 {searchHistory.map((item, index) => (
-                  <li key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded-md">
+                  <li
+                    key={index}
+                    className="flex items-center justify-between bg-gray-50 p-2 rounded-md"
+                  >
                     <div className="flex items-center">
                       <div
                         className="w-6 h-6 rounded-full mr-2"
                         style={{ backgroundColor: item.hex }}
                       ></div>
-                      <span className="font-mono text-sm">{item.input} → {item.output}</span>
+                      <span className="font-mono text-sm">
+                        {item.input} → {item.output}
+                      </span>
                     </div>
                     <div>
                       <Button
@@ -739,13 +851,28 @@ export default function Wind2Hex() {
         <footer className="mt-8 text-center text-sm text-gray-500">
           <p>Developed by Ndiaga Ndiaye</p>
           <div className="flex justify-center space-x-4 mt-2">
-            <a href="https://ndiagandiaye.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700">
+            <a
+              href="https://ndiagandiaye.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-700"
+            >
               <Globe className="h-4 w-4 text-gray-600" />
             </a>
-            <a href="https://www.linkedin.com/in/ndiagandiaye" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700">
+            <a
+              href="https://www.linkedin.com/in/ndiagandiaye"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-700"
+            >
               <Linkedin className="h-4 w-4 text-gray-600" />
             </a>
-            <a href="https://github.com/njaga" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700">
+            <a
+              href="https://github.com/njaga"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-700"
+            >
               <Github className="h-4 w-4 text-gray-600" />
             </a>
           </div>
