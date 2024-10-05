@@ -13,6 +13,8 @@
 
 [View Live Demo](https://colorfusion-five.vercel.app/) | [Source Code on GitHub](https://github.com/njaga/colorfusion)
 
+![ColorFusion Preview](public/img/preview%20colorfusion.gif)
+
 </div>
 
 ## 🚀 Features
@@ -72,7 +74,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 <div align="center">
-
 Made with ❤️ by Ndiaga Ndiaye
-
 </div>
