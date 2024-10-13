@@ -21,6 +21,7 @@ yarn-error.log*
 
 # Fichiers d'environnement local
 .env*.local
+.env.local
 
 # Fichiers de vérification
 .vercel
