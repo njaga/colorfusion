@@ -10,7 +10,7 @@ export const size = {
 
 export const contentType = 'image/png'
 
-export default async function Image() {
+export default function Image() {
   return new ImageResponse(
     (
       <div
@@ -19,10 +19,9 @@ export default async function Image() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '40px',
+          justifyContent: 'center',
           fontFamily: 'system-ui, sans-serif',
         }}
       >
@@ -30,14 +29,14 @@ export default async function Image() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             justifyContent: 'center',
-            width: '50%',
+            textAlign: 'center',
           }}
         >
           <h1
             style={{
-              fontSize: 72,
+              fontSize: 80,
               fontWeight: 'bold',
               color: '#ecc94b',
               marginBottom: 20,
@@ -47,43 +46,45 @@ export default async function Image() {
           </h1>
           <h2
             style={{
-              fontSize: 36,
+              fontSize: 40,
               color: '#ffffff',
-              marginBottom: 20,
-              maxWidth: '90%',
+              marginBottom: 40,
+              maxWidth: '80%',
             }}
           >
             Design with Ease, Create with Precision
           </h2>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 20,
+            }}
+          >
+            {['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'].map(
+              (color, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: '50%',
+                    backgroundColor: color,
+                  }}
+                />
+              )
+            )}
+          </div>
           <p
             style={{
               fontSize: 24,
               color: '#cbd5e0',
-              marginTop: 20,
-              maxWidth: '90%',
+              marginTop: 40,
             }}
           >
             Unleash your creativity with vibrant palettes, unique patterns, and gradients
           </p>
-        </div>
-        <div
-          style={{
-            width: '50%',
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img
-            src="https://colorfusion.vercel.app/img/bobgeneration.png"
-            alt="ColorFusion Preview"
-            style={{
-              maxWidth: '100%',
-              maxHeight: '100%',
-              objectFit: 'contain',
-            }}
-          />
         </div>
       </div>
     ),
