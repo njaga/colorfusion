@@ -11,14 +11,6 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
-  const interSemiBold = await fetch(
-    new URL('./fonts/Inter-SemiBold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer())
-
-  const interBold = await fetch(
-    new URL('./fonts/Inter-Bold.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer())
-
   return new ImageResponse(
     (
       <div
@@ -31,6 +23,7 @@ export default async function Image() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '40px',
+          fontFamily: 'system-ui, sans-serif',
         }}
       >
         <div
@@ -96,20 +89,6 @@ export default async function Image() {
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: 'Inter',
-          data: interSemiBold,
-          style: 'normal',
-          weight: 600,
-        },
-        {
-          name: 'Inter',
-          data: interBold,
-          style: 'normal',
-          weight: 700,
-        },
-      ],
     }
   )
 }
