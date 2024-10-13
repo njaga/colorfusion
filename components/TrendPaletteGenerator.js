@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Copy, Check, Palette, Home, Globe, Linkedin, Github, Download, Star } from "lucide-react";
@@ -261,6 +262,7 @@ const generateHarmoniousColors = (baseColor) => {
 };
 
 const TrendPaletteGenerator = () => {
+    const [data, setData] = useLocalStorage('trendPaletteData', null);
     const [currentPalette, setCurrentPalette] = useState(['#ffffff', '#cccccc', '#999999', '#666666', '#333333']);
     const [complementaryColors, setComplementaryColors] = useState([]);
     const [inputColor, setInputColor] = useState('');
@@ -583,7 +585,7 @@ const TrendPaletteGenerator = () => {
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col font-sans">
             <main className="flex-grow flex flex-col p-4 sm:p-8 max-w-6xl mx-auto w-full">
                 <motion.h1
-                    className="text-3xl sm:text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-gray-600 to-gray-900 mb-6 sm:mb-8 md:mb-12 text-center"
+                    className="text-4xl sm:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-gray-600 to-gray-900 mb-8 sm:mb-12 text-center"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
@@ -591,7 +593,7 @@ const TrendPaletteGenerator = () => {
                     Palette Generator
                 </motion.h1>
 
-                <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8 space-y-4 sm:space-y-6">
+                <div className="bg-white rounded-xl shadow-lg p-8 space-y-6">
                     <motion.div
                         className="w-full mb-8"
                         initial={{ opacity: 0, scale: 0.9 }}
