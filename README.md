@@ -17,8 +17,6 @@
 
 </div>
 
-![ColorFusion Preview](public/img/preview%20colorfusion.gif)
-
 ## 🚀 Features
 
 🎨 **Palette Generator**: Create harmonious and trendy color palettes in an instant.
