@@ -13,6 +13,8 @@
 
 [🌐 Live Demo](https://colorfusion-five.vercel.app/) | [💻 Source Code](https://github.com/njaga/colorfusion)
 
+![ColorFusion Preview](public/img/preview%20colorfusion.gif)
+
 </div>
 
 ![ColorFusion Preview](public/img/preview%20colorfusion.gif)
