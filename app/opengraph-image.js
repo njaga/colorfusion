@@ -25,23 +25,17 @@ export default function Image() {
           fontFamily: 'system-ui, sans-serif',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
-          <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" rx="20" fill="#FFFFFF"/>
-            <path d="M30 70 L70 70 L50 30 Z" fill="#FFD700"/>
-            <path d="M30 70 L70 70 L50 90 Z" fill="#000000"/>
-          </svg>
-          <h1
-            style={{
-              fontSize: 80,
-              fontWeight: 'bold',
-              color: '#FFD700',
-              marginLeft: 20,
-            }}
-          >
-            ColorFusion
-          </h1>
-        </div>
+        <h1
+          style={{
+            fontSize: 80,
+            fontWeight: 'bold',
+            color: '#ecc94b',
+            marginBottom: 20,
+            textAlign: 'center',
+          }}
+        >
+          ColorFusion
+        </h1>
         <h2
           style={{
             fontSize: 40,
