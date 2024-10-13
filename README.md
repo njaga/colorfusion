@@ -87,6 +87,11 @@ Each feature in ColorFusion has its own method of use:
 2. Set colors for the grid and its cells.
 3. Generate the grid HTML and Tailwind CSS code.
 
+### Tailwind Code Visualizer
+
+1. Enter your Tailwind CSS code.            
+2. The tool visualizes the code, showing how it translates to HTML and CSS.
+
 ## 🛠️ Tech Stack
 
 - [React](https://reactjs.org/) - UI library
