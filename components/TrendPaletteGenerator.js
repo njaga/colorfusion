@@ -267,10 +267,7 @@ const TrendPaletteGenerator = () => {
     const [complementaryColors, setComplementaryColors] = useState([]);
     const [inputColor, setInputColor] = useState('');
     const [copiedIndex, setCopiedIndex] = useState(null);
-    const [favorites, setFavorites] = useState(() => {
-        const savedFavorites = localStorage.getItem('paletteFavorites');
-        return savedFavorites ? JSON.parse(savedFavorites) : [];
-    });
+    const [favorites, setFavorites] = useState([]);
     const [harmoniousColors, setHarmoniousColors] = useState({
         analogous: ['#ffffff', '#ffffff'],
         triadic: ['#ffffff', '#ffffff'],
@@ -581,6 +578,20 @@ const TrendPaletteGenerator = () => {
             </motion.div>
         );
     };
+
+    useEffect(() => {
+        // Charger les favoris depuis localStorage uniquement côté client
+        const savedFavorites = typeof window !== 'undefined' ? localStorage.getItem('paletteFavorites') : null;
+        setFavorites(savedFavorites ? JSON.parse(savedFavorites) : []);
+    }, []);
+
+    useEffect(() => {
+        // Sauvegarder les favoris dans localStorage uniquement côté client
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('paletteFavorites', JSON.stringify(favorites));
+        }
+    }, [favorites]);
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col font-sans">
             <main className="flex-grow flex flex-col p-4 sm:p-8 max-w-6xl mx-auto w-full">

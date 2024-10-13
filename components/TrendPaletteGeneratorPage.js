@@ -14,4 +14,3 @@ const TrendPaletteGeneratorPage = () => {
 };
 
 export default TrendPaletteGeneratorPage;
-
