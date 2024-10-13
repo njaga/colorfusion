@@ -3,7 +3,6 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import SidebarWrapper from '@/components/SidebarWrapper';
 import Sidebar from '@/components/Sidebar';
 
 const geistSans = localFont({
@@ -18,8 +17,29 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "ColorFusion",
-  description: "Easily convert between HEX, RGB, HSL color codes and Tailwind CSS classes.",
+  title: "ColorFusion - Design with Ease, Create with Precision",
+  description: "Unleash your creativity with ColorFusion: vibrant palettes, unique patterns, and gradients. Join thousands of designers who draw daily inspiration from it.",
+  openGraph: {
+    title: "ColorFusion - Design with Ease, Create with Precision",
+    description: "Unleash your creativity with ColorFusion: vibrant palettes, unique patterns, and gradients. Join thousands of designers who draw daily inspiration from it.",
+    url: 'https://colorfusion.vercel.app',
+    siteName: 'ColorFusion',
+    images: [
+      {
+        url: 'https://colorfusion.vercel.app/opengraph-image',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "ColorFusion - Design with Ease, Create with Precision",
+    description: "Unleash your creativity with ColorFusion: vibrant palettes, unique patterns, and gradients. Join thousands of designers who draw daily inspiration from it.",
+    images: ['https://colorfusion.vercel.app/opengraph-image'],
+  },
 };
 
 export default function RootLayout({ children }) {
